@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalCube: {fileID: 1417610762734039549, guid: 38216c6fb14f5da46a7c594c8546c240, type: 3}
   gameObjectList: []
-  numberOfCubes: 500
+  numberOfCubes: 10
   collisionCheckSphereRadius: 0.01
 --- !u!114 &137596762
 MonoBehaviour:
