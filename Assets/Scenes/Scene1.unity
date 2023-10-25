@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 137596761}
   - component: {fileID: 137596762}
   m_Layer: 0
-  m_Name: Instantiating
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalCube: {fileID: 1417610762734039549, guid: 38216c6fb14f5da46a7c594c8546c240, type: 3}
   gameObjectList: []
-  numberOfCubes: 10
+  numberOfCubes: 100
   collisionCheckSphereRadius: 0.01
 --- !u!114 &137596762
 MonoBehaviour:
@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd93f5760c9d70c479c12965ed1ab594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tempList: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

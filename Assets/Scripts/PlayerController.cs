@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
             upwrd.y = Mathf.Sqrt(jumpHeight * -3 * gravityPull);
         }
 
-        upwrd.y += gravityPull * Time.deltaTime;
+        upwrd.y = gravityPull * Time.deltaTime;
         characterController.Move(upwrd * Time.deltaTime);
         isGrounded = CheckGrounded(isGrounded);
     }

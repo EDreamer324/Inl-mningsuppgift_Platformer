@@ -1,44 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CubeChanges : MonoBehaviour {
 
     InstantiateCubes listRef;
+    [SerializeField] List<int> tempList = new List<int>();
 
     void Start() {
         listRef = GetComponent<InstantiateCubes>();
-    }
-    void FixedUpdate() {
-        StartCoroutine("ColliderToggle");
+        StartCoroutine(ToggleCollider());
     }
 
-    IEnumerator ColliderToggle() {
-        List<int> tmpList = new List<int>();
+    void colotChange() {
+
+    }
+
+    IEnumerator ToggleCollider() {
         int index;
+        int maxNumberOfTempObjects = (int) Mathf.Floor(listRef.gameObjectList.Count / 2); 
 
         while (true) {
-            tmpList.Clear();
-            for (int i = 0; i < Mathf.Floor(listRef.gameObjectList.Count / 5); i++) {
+            
+            while (tempList.Count < maxNumberOfTempObjects ) {
                 index = listRef.gameObjectList.IndexOf(listRef.gameObjectList[Random.Range(0, listRef.gameObjectList.Count)]);
-                tmpList.Add(index);
-                
+                if (!tempList.Contains(index)) {
+                    tempList.Add(index);
+                    listRef.gameObjectList[index].GetComponent<BoxCollider>().enabled = false;
+                }
+                yield return null;
             }
-            yield return null;
-        }
-        /*while(listRef.gameObjectList[Random.Range(0, listRef.gameObjectList.Count)].GetComponent<BoxCollider>().enabled == true) {
+            yield return new WaitForSecondsRealtime(5);
             for (int i = 0; i < listRef.gameObjectList.Count; i++) {
-            index = listRef.gameObjectList.IndexOf(listRef.gameObjectList[Random.Range(0, listRef.gameObjectList.Count)]);
-            listRef.gameObjectList[index].GetComponent<BoxCollider>().enabled = false;
-            Debug.Log("Collider off for " + index); 
+                listRef.gameObjectList[i].GetComponent<BoxCollider>().enabled = true;
             }
-            for (int i = 0; i < listRef.gameObjectList.Count; i++) {
-            index = listRef.gameObjectList.IndexOf(listRef.gameObjectList[Random.Range(0, listRef.gameObjectList.Count)]);
-            listRef.gameObjectList[index].GetComponent<BoxCollider>().enabled = true;
-            Debug.Log("Collider on for " + index); 
-            }
+            tempList.Clear();
+            yield return new WaitForSecondsRealtime(5);
         }
-        yield return null;*/
     }
     void OnDestroy(){listRef.gameObjectList.Clear();}
 }
