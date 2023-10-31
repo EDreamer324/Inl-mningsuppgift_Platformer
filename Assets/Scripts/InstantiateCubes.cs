@@ -6,19 +6,21 @@ public class InstantiateCubes : MonoBehaviour
 {
     [SerializeField] GameObject originalCube;
     GameObject duplicatedCube;
-    [SerializeField] public List<GameObject> gameObjectList = new List<GameObject>();
+    CubeChanges _Coroutineref;
+    
+    public List<GameObject> gameObjectList = new List<GameObject>();
 
 
 
     public int numberOfCubes;
     Vector3 spawnPosition;
     [SerializeField] float collisionCheckSphereRadius = 5;
-    float sphereRadius = 3;
     int debugSpawnedObjects;
 
 
     // Start is called before the first frame update
     void Start() {
+        _Coroutineref = GetComponent<CubeChanges>();
         StartCoroutine("InstantiateObject");
     }
 
@@ -33,8 +35,9 @@ public class InstantiateCubes : MonoBehaviour
                 gameObjectList.Add(duplicatedCube);
                 debugSpawnedObjects++;
             }
+            yield return null;
         }
         Debug.Log(debugSpawnedObjects);
-        yield return null;
+        _Coroutineref.StartCoroutine("ToggleCollider");
     }
 }
