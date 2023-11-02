@@ -6,7 +6,8 @@ public class InstantiateCubes : MonoBehaviour
 {
     [SerializeField] GameObject originalCube;
     GameObject duplicatedCube;
-    CubeChanges _Coroutineref;
+    CubeChanges _coroutineRef;
+    CoinsSceneManage _coinRef;
     
     public List<GameObject> gameObjectList = new List<GameObject>();
 
@@ -20,7 +21,7 @@ public class InstantiateCubes : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        _Coroutineref = GetComponent<CubeChanges>();
+        _coroutineRef = GetComponent<CubeChanges>();
         StartCoroutine("InstantiateObject");
     }
 
@@ -38,6 +39,8 @@ public class InstantiateCubes : MonoBehaviour
             yield return null;
         }
         Debug.Log(debugSpawnedObjects);
-        _Coroutineref.StartCoroutine("ToggleCollider");
+        yield return new WaitForSecondsRealtime(5);
+        _coroutineRef.StartCoroutine("ToggleCollider");
+        _coinRef.StartCoroutine("SpawnCoins");
     }
 }
