@@ -4,41 +4,38 @@ using UnityEngine;
 
 public class CubeChanges : MonoBehaviour {
 
-    InstantiateCubes _listRef;
+    Instantiating _listRef;
     [SerializeField] List<int> tempList = new List<int>();
     [SerializeField] Material mWithCollider, mWithoutCollider;
-    public bool easy, medium, hard;
     int maxNumberOfTempObjects = 0;
 
     void Start() {
-        _listRef = GetComponent<InstantiateCubes>();
-        //StartCoroutine("ToggleCollider");
-
+        _listRef = GetComponent<Instantiating>();
+        StartCoroutine("ToggleCollider");
     }
 
     IEnumerator ToggleCollider() {
         int index; 
-        maxNumberOfTempObjects = (int) Mathf.Floor(_listRef.gameObjectList.Count / 3);
         while (true) {
-            
+            maxNumberOfTempObjects = (int) Mathf.Floor(_listRef.SpawnedCubeList.Count / 3);
             while (tempList.Count < maxNumberOfTempObjects ) {
-                index = _listRef.gameObjectList.IndexOf(_listRef.gameObjectList[Random.Range(0, _listRef.gameObjectList.Count)]);
+                index = _listRef.SpawnedCubeList.IndexOf(_listRef.SpawnedCubeList[Random.Range(0, _listRef.SpawnedCubeList.Count)]);
                 if (!tempList.Contains(index)) {
                     tempList.Add(index);
-                    _listRef.gameObjectList[index].GetComponent<BoxCollider>().enabled = false;
-                    _listRef.gameObjectList[index].GetComponent<MeshRenderer>().material = mWithoutCollider;
+                    _listRef.SpawnedCubeList[index].GetComponent<BoxCollider>().enabled = false;
+                    _listRef.SpawnedCubeList[index].GetComponent<MeshRenderer>().material = mWithoutCollider;
                 }
                 yield return null;
             }
             yield return new WaitForSecondsRealtime(5);
-            for (int i = 0; i < _listRef.gameObjectList.Count; i++) {
-                _listRef.gameObjectList[i].GetComponent<BoxCollider>().enabled = true;
-                _listRef.gameObjectList[i].GetComponent<MeshRenderer>().material = mWithCollider;
+            for (int i = 0; i < _listRef.SpawnedCubeList.Count; i++) {
+                _listRef.SpawnedCubeList[i].GetComponent<BoxCollider>().enabled = true;
+                _listRef.SpawnedCubeList[i].GetComponent<MeshRenderer>().material = mWithCollider;
                 yield return null;
             }
             tempList.Clear();
             yield return new WaitForSecondsRealtime(5);
         }
     }
-    void OnDestroy(){_listRef.gameObjectList.Clear();}
+    void OnDestroy(){_listRef.SpawnedCubeList.Clear();}
 }

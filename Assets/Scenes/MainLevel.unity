@@ -286,9 +286,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 998833728}
-  - component: {fileID: 998833727}
-  - component: {fileID: 998833729}
   - component: {fileID: 998833730}
+  - component: {fileID: 998833729}
   m_Layer: 0
   m_Name: Instantiated objects controller
   m_TagString: Untagged
@@ -296,22 +295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &998833727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998833725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db4a356694dd93a4cb3f6f5f6af3eed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalCube: {fileID: 6002156551509836677, guid: 38216c6fb14f5da46a7c594c8546c240, type: 3}
-  gameObjectList: []
-  numberOfCubes: 500
-  collisionCheckSphereRadius: 0.51
 --- !u!4 &998833728
 Transform:
   m_ObjectHideFlags: 0
@@ -342,7 +325,7 @@ MonoBehaviour:
   tempList: 
   mWithCollider: {fileID: 2100000, guid: 6446d08034584b54da1095537dc4b88b, type: 2}
   mWithoutCollider: {fileID: 2100000, guid: 80b382ae6e33fa34c98b6ad7158c2b2c, type: 2}
-  easy: 1
+  easy: 0
   medium: 0
   hard: 0
 --- !u!114 &998833730
@@ -354,10 +337,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 998833725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dc0a7adcc2639449964daeb6fec87b6, type: 3}
+  m_Script: {fileID: 11500000, guid: aefe53c1de9a99e40a7852f99cd24e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalCube: {fileID: 6002156551509836677, guid: 38216c6fb14f5da46a7c594c8546c240, type: 3}
   coin: {fileID: 3623009384198104526, guid: 48e3940f0e03f7f479d2ea098613ec34, type: 3}
+  SpawnedCubeList: []
+  SpawnedCoinList: []
+  numberOfCubes: 500
+  collisionCheckSphereRadius: 0.5
 --- !u!1 &1124535758
 GameObject:
   m_ObjectHideFlags: 0
