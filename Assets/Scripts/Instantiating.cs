@@ -16,8 +16,6 @@ public class Instantiating : MonoBehaviour
     Vector3 coinSpawnRotation;
     Vector3 rotation = new Vector3(0,1,0);
     //Integers
-    int debugSpawnedCubes;
-    int debugSpawnedCoins;
     public int numberOfCubes;
     //Floats
     [SerializeField] float collisionCheckSphereRadius = 5;
@@ -32,25 +30,23 @@ public class Instantiating : MonoBehaviour
             cubeSpawnPosition = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), Random.Range(-30, 30));
 
             if (!Physics.CheckSphere(cubeSpawnPosition, collisionCheckSphereRadius)) {
-                duplicatedCube = Instantiate(originalCube, cubeSpawnPosition, Random.rotation);
+                duplicatedCube = Instantiate(originalCube, cubeSpawnPosition, Quaternion.identity);
                 SpawnedCubeList.Add(duplicatedCube);
-                debugSpawnedCubes++;
             }
         }
-        Debug.Log(debugSpawnedCubes + " cubes spawned");
         SpawnCoins();
     }
     void SpawnCoins(){
-        Debug.Log("coins spawning");
         coinSpawnRotation = new Vector3(90,0,0);
         int coinAmt = (int) Mathf.Floor(SpawnedCubeList.Count / 7);
+
         for(int i = 0; i < coinAmt; i++){
             Vector3 spawnPosition = new Vector3(SpawnedCubeList[i].transform.position.x, SpawnedCubeList[i].transform.position.y + 1.2f, SpawnedCubeList[i].transform.position.z);
             duplicatedCoin = Instantiate(coin, spawnPosition, Quaternion.Euler(coinSpawnRotation));
             duplicatedCoin.transform.SetParent(SpawnedCubeList[i].transform);
+
             SpawnedCoinList.Add(duplicatedCoin);
-            debugSpawnedCoins++;
         }
-        Debug.Log(debugSpawnedCubes + " coins spawned");
+        _coroutineRef.StartCoroutine("ToggleCollider");
     }
 }

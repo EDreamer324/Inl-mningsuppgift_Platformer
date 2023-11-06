@@ -11,31 +11,62 @@ public class CubeChanges : MonoBehaviour {
 
     void Start() {
         _listRef = GetComponent<Instantiating>();
-        StartCoroutine("ToggleCollider");
     }
 
     IEnumerator ToggleCollider() {
         int index; 
+
         while (true) {
             maxNumberOfTempObjects = (int) Mathf.Floor(_listRef.SpawnedCubeList.Count / 3);
+
             while (tempList.Count < maxNumberOfTempObjects ) {
                 index = _listRef.SpawnedCubeList.IndexOf(_listRef.SpawnedCubeList[Random.Range(0, _listRef.SpawnedCubeList.Count)]);
+                //Turn Colliders off
                 if (!tempList.Contains(index)) {
                     tempList.Add(index);
-                    _listRef.SpawnedCubeList[index].GetComponent<BoxCollider>().enabled = false;
-                    _listRef.SpawnedCubeList[index].GetComponent<MeshRenderer>().material = mWithoutCollider;
+                    /*_listRef.SpawnedCubeList[index].GetComponent<MeshRenderer>().material = mWithoutCollider;
+                    _listRef.SpawnedCubeList[index].GetComponent<BoxCollider>().enabled = false;*/
                 }
                 yield return null;
             }
-            yield return new WaitForSecondsRealtime(5);
+            StartCoroutine("CubeMaterialChange");
+            yield return new WaitForSeconds(9);
+
+            //Turn Colliders on
             for (int i = 0; i < _listRef.SpawnedCubeList.Count; i++) {
                 _listRef.SpawnedCubeList[i].GetComponent<BoxCollider>().enabled = true;
                 _listRef.SpawnedCubeList[i].GetComponent<MeshRenderer>().material = mWithCollider;
-                yield return null;
             }
             tempList.Clear();
-            yield return new WaitForSecondsRealtime(5);
+            yield return new WaitForSeconds(5);
         }
     }
-    void OnDestroy(){_listRef.SpawnedCubeList.Clear();}
+    IEnumerator CubeMaterialChange(){
+        for(int i = 0; i < tempList.Count; i++){
+            _listRef.SpawnedCubeList[tempList[i]].GetComponent<MeshRenderer>().material = mWithoutCollider;
+        }
+        yield return new WaitForSeconds(1);
+
+        for(int i = 0; i < tempList.Count; i++){
+            _listRef.SpawnedCubeList[tempList[i]].GetComponent<MeshRenderer>().material = mWithCollider;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        for(int i = 0; i < tempList.Count; i++){
+            _listRef.SpawnedCubeList[tempList[i]].GetComponent<MeshRenderer>().material = mWithoutCollider;
+        }
+        yield return new WaitForSeconds(1);
+
+        for(int i = 0; i < tempList.Count; i++){
+            _listRef.SpawnedCubeList[tempList[i]].GetComponent<MeshRenderer>().material = mWithCollider;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        for(int i = 0; i < tempList.Count; i++){
+            _listRef.SpawnedCubeList[tempList[i]].GetComponent<MeshRenderer>().material = mWithoutCollider;
+                    _listRef.SpawnedCubeList[tempList[i]].GetComponent<BoxCollider>().enabled = false;
+        }
+    }
 }
